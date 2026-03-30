@@ -1,0 +1,90 @@
+﻿@model Web.Models.LoginViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Đăng nhập - Coffee Shop</title>
+    <style>
+        body {
+            background-color: #F5F5DC; /* Màu kem */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-card {
+            background: white;
+            padding: 40px;
+            border-radius: 25px; /* Bo tròn lớn - Novelty style */
+            box-shadow: 0 10px 25px rgba(111, 78, 55, 0.2);
+            width: 350px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #6F4E37;
+        }
+        /* Màu nâu cafe */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1.5px solid #D2B48C;
+            border-radius: 12px;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #6F4E37;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+            button:hover {
+                background-color: #4B3621;
+            }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <h2>Coffee Login</h2>
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
+            <p class="error">@ViewBag.Error</p>
+            <div class="form-group">
+                <label>Tên đăng nhập</label>
+                @Html.TextBoxFor(m => m.Username, new { @placeholder = "Nhập username..." })
+            </div>
+            <div class="form-group">
+                <label>Mật khẩu</label>
+                @Html.PasswordFor(m => m.Password, new { @placeholder = "Nhập mật khẩu..." })
+            </div>
+            <button type="submit">ĐĂNG NHẬP</button>
+        }
+        <p style="margin-top: 15px; font-size: 13px;">Chưa có tài khoản? <a href="#" style="color: #6F4E37;">Đăng ký ngay</a></p>
+    </div>
+</body>
+</html>

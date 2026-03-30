@@ -1,0 +1,226 @@
+﻿@model IEnumerable<Web.Models.Product>
+    @{
+        ViewBag.Title = "Bảng điều khiển";
+        Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    }
+
+    <!-- Stats Overview -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-3">
+            <div class="card card-stats p-4 bg-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted text-uppercase mb-2">Thực đơn</h6>
+                        <h2 class="fw-bold mb-0">@ViewBag.TotalProducts</h2>
+                    </div>
+                    <div class="p-3 bg-primary bg-opacity-10 text-primary rounded-3"><i class="fas fa-coffee fa-2x"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-stats p-4 bg-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted text-uppercase mb-2">Hóa đơn</h6>
+                        <h2 class="fw-bold mb-0">@ViewBag.TotalOrders</h2>
+                    </div>
+                    <div class="p-3 bg-success bg-opacity-10 text-success rounded-3"><i class="fas fa-receipt fa-2x"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-stats p-4 bg-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted text-uppercase mb-2">Bàn Cafe</h6>
+                        <h2 class="fw-bold mb-0">@ViewBag.TotalTables</h2>
+                    </div>
+                    <div class="p-3 bg-warning bg-opacity-10 text-warning rounded-3"><i class="fas fa-chair fa-2x"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-stats p-4 bg-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted text-uppercase mb-2">Danh mục</h6>
+                        <h2 class="fw-bold mb-0">@ViewBag.TotalCategories</h2>
+                    </div>
+                    <div class="p-3 bg-info bg-opacity-10 text-info rounded-3"><i class="fas fa-tags fa-2x"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table Section -->
+    <div class="table-container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="fw-bold mb-0 text-primary"><i class="fas fa-clipboard-list me-2"></i>QUẢN LÝ SẢN PHẨM</h5>
+            <button class="btn btn-custom btn-primary-coffee shadow-sm" data-bs-toggle="modal" data-bs-target="#createModal">
+                <i class="fas fa-plus me-2"></i>Thêm món ăn
+            </button>
+        </div>
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show border-0 rounded-3 shadow-sm mb-4" role="alert">
+                <i class="fas fa-check-circle me-2"></i> @TempData["Success"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle border-0">
+                <thead>
+                    <tr>
+                        <th class="ps-3">ID</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Phân loại</th>
+                        <th>Giá bán</th>
+                        <th class="text-end pe-3">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr id="row-@item.Id">
+                            <td class="ps-3 fw-bold text-muted">#@item.Id</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="p-2 bg-light rounded-circle me-3"><i class="fas fa-mug-hot text-secondary"></i></div>
+                                    <span class="fw-semibold">@item.Name</span>
+                                </div>
+                            </td>
+                            <td><span class="badge bg-light text-dark border px-3 py-2 rounded-pill">@(item.Category?.Name ?? "Chưa rõ")</span></td>
+                            <td><span class="text-success fw-bold">@string.Format("{0:0,0}", item.Price) đ</span></td>
+                            <td class="text-end pe-3">
+                                <button class="btn btn-light btn-sm rounded-3 px-3 border me-1" onclick="openEditModal(@item.Id, '@item.Name', @item.Price, @item.CategoryId)">
+                                    <i class="fas fa-edit text-primary"></i>
+                                </button>
+                                <button class="btn btn-light btn-sm rounded-3 px-3 border" onclick="deleteProduct(@item.Id)">
+                                    <i class="fas fa-trash text-danger"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal Thêm Sản Phẩm -->
+    <div class="modal fade" id="createModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow rounded-4 overflow-hidden">
+                @using (Html.BeginForm("CreateProduct", "Dashboard", new { area = "Amin" }, FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="modal-header bg-dark text-white border-0 py-3">
+                        <h5 class="modal-title fw-bold"><i class="fas fa-plus-circle me-2 text-accent"></i>Thêm món mới</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body p-4 text-dark">
+                        <div class="mb-4">
+                            <label class="form-label small fw-bold text-uppercase text-muted">Tên món ăn</label>
+                            <input type="text" name="Name" class="form-control form-control-lg border-2" placeholder="Ví dụ: Cà phê cốt dừa..." required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label small fw-bold text-uppercase text-muted">Giá bán (VNĐ)</label>
+                            <input type="number" name="Price" class="form-control form-control-lg border-2" placeholder="35000" required>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label small fw-bold text-uppercase text-muted">Danh mục phân loại</label>
+                            @Html.DropDownList("CategoryId", null, "-- Chọn danh mục --", new { @class = "form-select form-select-lg border-2", @required = "required" })
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0 p-4 pt-0">
+                        <button type="submit" class="btn btn-primary-coffee w-100 py-3 rounded-3 shadow-sm fw-bold">XÁC NHẬN THÊM</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Chỉnh Sửa -->
+    <div class="modal fade" id="editModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow rounded-4 overflow-hidden">
+                @using (Html.BeginForm("EditProduct", "Dashboard", new { area = "Amin" }, FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="Id" id="edit-id" />
+                    <div class="modal-header bg-primary text-white border-0 py-3">
+                        <h5 class="modal-title fw-bold"><i class="fas fa-edit me-2"></i>Cập nhật sản phẩm</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body p-4 text-dark">
+                        <div class="mb-4">
+                            <label class="form-label small fw-bold text-uppercase text-muted">Tên món ăn</label>
+                            <input type="text" name="Name" id="edit-name" class="form-control form-control-lg border-2" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label small fw-bold text-uppercase text-muted">Giá bán (VNĐ)</label>
+                            <input type="number" name="Price" id="edit-price" class="form-control form-control-lg border-2" required>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label small fw-bold text-uppercase text-muted">Danh mục</label>
+                            @Html.DropDownList("CategoryId", null, new { @id = "edit-cat", @class = "form-select form-select-lg border-2" })
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0 p-4 pt-0">
+                        <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 fw-bold">LƯU THAY ĐỔI</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    @section scripts {
+        <script>
+        // Mở Modal chỉnh sửa và đổ dữ liệu
+        function openEditModal(id, name, price, catId) {
+            $('#edit-id').val(id);
+            $('#edit-name').val(name);
+            $('#edit-price').val(price);
+            $('#edit-cat').val(catId);
+            var modal = new bootstrap.Modal(document.getElementById('editModal'));
+            modal.show();
+        }
+
+        // Chức năng xóa bằng AJAX (Web động không load lại trang)
+        function deleteProduct(id) {
+            Swal.fire({
+                title: 'Bạn có chắc chắn?',
+                text: "Dữ liệu món ăn sẽ bị xóa vĩnh viễn khỏi hệ thống!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Có, hãy xóa!',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '@Url.Action("DeleteProduct", "Dashboard", new { area = "Admin" })',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (res) {
+                            if (res.success) {
+                                // Xóa dòng khỏi bảng ngay lập tức bằng hiệu ứng FadeOut
+                                $('#row-' + id).fadeOut(400, function() {
+                                    $(this).remove();
+                                });
+                                Swal.fire('Đã xóa!', res.message, 'success');
+                            } else {
+                                Swal.fire('Lỗi!', res.message, 'error');
+                            }
+                        },
+                        error: function() {
+                            Swal.fire('Lỗi!', 'Không thể kết nối tới server.', 'error');
+                        }
+                    });
+                }
+            });
+        }
+        </script>
+    }
