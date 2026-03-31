@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Web.Models.Inventory>
+@{
+    ViewBag.Title = "Quản lý Kho";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid px-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mt-4">Tồn kho nguyên liệu</h2>
+        <a href="@Url.Action("Suppliers")" class="btn btn-outline-primary"><i class="fas fa-truck"></i> Nhà cung cấp</a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-dark text-white">
+                    <tr>
+                        <th class="ps-4">Tên nguyên liệu</th>
+                        <th>Số lượng</th>
+                        <th>Đơn vị</th>
+                        <th>Nhà cung cấp</th>
+                        <th class="text-center">Cập nhật nhanh</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="ps-4 fw-bold">@item.IngredientName</td>
+                            <td>
+                                <span class="@(item.Quantity < 5 ? "text-danger fw-bold" : "text-dark")">@item.Quantity</span>
+                            </td>
+                            <td>@item.Unit</td>
+                            <td>@(item.Supplier != null ? item.Supplier.SupplierName : "N/A")</td>
+                            <td class="text-center">
+                                @using (Html.BeginForm("UpdateStock", "Warehouse", FormMethod.Post, new { @class = "d-flex justify-content-center gap-2" }))
+                                {
+                                    <input type="hidden" name="id" value="@item.IngredientID" />
+                                    <input type="number" name="quantity" class="form-control form-control-sm" style="width: 70px;" placeholder="+/-">
+                                    <button class="btn btn-sm btn-success">Lưu</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

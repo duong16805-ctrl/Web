@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Web.Models.WebMenu>
+@{
+    ViewBag.Title = "Cấu hình Menu";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid px-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mt-4 text-primary">Quản lý Menu Giao diện</h2>
+        <a href="@Url.Action("Create")" class="btn btn-primary"><i class="fas fa-plus"></i> Thêm mục menu</a>
+    </div>
+
+    <div class="alert alert-info shadow-sm">
+        <i class="fas fa-info-circle me-2"></i> Các mục bạn thêm ở đây sẽ hiển thị trên thanh điều hướng trang chủ.
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead class="bg-primary text-white">
+                    <tr>
+                        <th>Tên hiển thị</th>
+                        <th>Link liên kết</th>
+                        <th>Thứ tự</th>
+                        <th>Trạng thái</th>
+                        <th class="text-end">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><strong>@item.MenuName</strong></td>
+                            <td><code class="text-secondary">@item.MenuUrl</code></td>
+                            <td>@item.DisplayOrder</td>
+                            <td>
+                                <span class="badge @(item.IsVisible ? "bg-success" : "bg-dark")">
+                                    @(item.IsVisible ? "Đang hiện" : "Đang ẩn")
+                                </span>
+                            </td>
+                            <td class="text-end">
+                                <a href="@Url.Action("Edit", new { id = item.MenuID })" class="btn btn-sm btn-icon btn-outline-warning me-1"><i class="fas fa-edit"></i></a>
+                                <a href="@Url.Action("Delete", new { id = item.MenuID })" class="btn btn-sm btn-icon btn-outline-danger" onclick="return confirm('Xóa menu?')"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

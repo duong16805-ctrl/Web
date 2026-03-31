@@ -1,0 +1,40 @@
+﻿@model Web.Models.WebMenu
+@{
+    ViewBag.Title = "Thêm mục Menu";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid px-4">
+    <h2 class="mt-4 mb-4">Cấu hình Menu mới</h2>
+    <div class="card shadow-sm border-0 col-md-7">
+        <div class="card-body p-4">
+            @using (Html.BeginForm())
+            {
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Tên Menu (Hiển thị trên Web)</label>
+                    @Html.TextBoxFor(m => m.MenuName, new { @class = "form-control", placeholder = "Ví dụ: Khuyến mãi", required = "required" })
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Link (URL)</label>
+                    @Html.TextBoxFor(m => m.MenuUrl, new { @class = "form-control", placeholder = "Ví dụ: /Home/Sale", required = "required" })
+                    <small class="text-muted italic">Mẹo: Dùng / cho Trang chủ, /Home/About cho Giới thiệu.</small>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Thứ tự ưu tiên</label>
+                        @Html.TextBoxFor(m => m.DisplayOrder, new { @class = "form-control", type = "number" })
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label fw-bold">Hiển thị</label>
+                        <div class="form-check form-switch mt-2">
+                            @Html.CheckBoxFor(m => m.IsVisible, new { @class = "form-check-input", @id = "visibleSwitch" })
+                            <label class="form-check-label" for="visibleSwitch">Bật mục này trên Web</label>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary px-5 py-2">Xác nhận thêm</button>
+                <a href="@Url.Action("Index")" class="btn btn-outline-secondary ms-2">Quay lại</a>
+            }
+        </div>
+    </div>
+</div>

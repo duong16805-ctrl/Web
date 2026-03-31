@@ -130,13 +130,18 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UIConfigController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Category.cs">
+      <DependentUpon>QLCF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Inventory.cs">
       <DependentUpon>QLCF.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LoginViewModel.cs.cs" />
@@ -164,10 +169,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QLCF.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Supplier.cs">
+      <DependentUpon>QLCF.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TableCafe.cs">
       <DependentUpon>QLCF.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
+      <DependentUpon>QLCF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WebMenu.cs">
       <DependentUpon>QLCF.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -218,6 +229,16 @@
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Areas\Admin\Views\Web.config" />
+    <Content Include="Areas\Admin\Views\ProductManager\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductManager\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderManager\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\TableManager\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Warehouse\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Warehouse\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\TableManager\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Warehouse\Index tonkho.cshtml" />
+    <Content Include="Areas\Admin\Views\MenuManager\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\MenuManager\Create.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -247,6 +268,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Views\Admin\" />
+    <Folder Include="Areas\Admin\Views\UIConfig\" />
     <Folder Include="Areas\User\" />
     <Folder Include="Views\Dashboard\" />
   </ItemGroup>
