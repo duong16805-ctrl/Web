@@ -132,7 +132,6 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
-    <Compile Include="Areas\Admin\Controllers\UIConfigController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -144,7 +143,7 @@
     <Compile Include="Models\Inventory.cs">
       <DependentUpon>QLCF.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\LoginViewModel.cs.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\Order.cs">
       <DependentUpon>QLCF.tt</DependentUpon>
     </Compile>
@@ -239,6 +238,7 @@
     <Content Include="Areas\Admin\Views\Warehouse\Index tonkho.cshtml" />
     <Content Include="Areas\Admin\Views\MenuManager\Index.cshtml" />
     <Content Include="Areas\Admin\Views\MenuManager\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductManager\Edit.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />

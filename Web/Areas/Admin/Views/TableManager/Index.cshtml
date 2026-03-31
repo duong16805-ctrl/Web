@@ -14,14 +14,23 @@
         @foreach (var table in Model)
         {
             <div class="col-md-3 col-lg-2 mb-4">
-                <div class="card h-100 shadow-sm @(table.IsOccupied ? "border-danger text-danger bg-light" : "border-success text-success")" style="border-radius: 15px;">
+                <div class="card h-100 shadow-sm @(table.Status == "Có khách" ? "border-danger text-danger bg-light" : "border-success text-success")" style="border-radius: 15px">
+
                     <div class="card-body text-center p-4">
                         <i class="fas fa-mug-hot fa-3x mb-3"></i>
-                        <h5 class="card-title fw-bold mb-1">@table.TableName</h5>
-                        <p class="small mb-3">@(table.IsOccupied ? "Có khách" : "Bàn trống")</p>
+                        <h5 class="card-title fw-bold mb-1">@table.Name</h5>
+                        <p class="small mb-3">@(table.Status == "Có khách" ? "Đang có khách" : "Bàn trống")</p>
+
                         <div class="d-grid gap-2">
-                            <a href="@Url.Action("ToggleStatus", new { id = table.TableID })" class="btn btn-sm @(table.IsOccupied ? "btn-danger" : "btn-success")">Đổi trạng thái</a>
-                            <a href="@Url.Action("Delete", new { id = table.TableID })" class="text-muted small text-decoration-none" onclick="return confirm('Xóa bàn này?')">Xóa bàn</a>
+                            <a href="@Url.Action("ToggleStatus", "TableManager", new { id = table.Id })"
+                               class="btn btn-sm @(table.Status == "Có khách" ? "btn-danger" : "btn-success")">
+                                @(table.Status == "Có khách" ? "Trả bàn" : "Mở bàn")
+                            </a>
+
+                            @* Bước 5: Sửa TableID thành Id cho nút Xóa *@
+                            <a href="@Url.Action("Delete", "TableManager", new { id = table.Id })"
+                               class="text-muted small text-decoration-none"
+                               onclick="return confirm('Bạn có chắc chắn muốn xóa bàn này?')">Xóa bàn</a>
                         </div>
                     </div>
                 </div>

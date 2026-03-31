@@ -27,7 +27,7 @@
                     <div class="col-md-6 mb-4">
                         <label class="form-label fw-bold">Hiển thị</label>
                         <div class="form-check form-switch mt-2">
-                            @Html.CheckBoxFor(m => m.IsVisible, new { @class = "form-check-input", @id = "visibleSwitch" })
+                            @Html.EditorFor(m => m.IsVisible, new { htmlAttributes = new { @class = "form-check-input", @id = "visibleSwitch", type = "checkbox" } })
                             <label class="form-check-label" for="visibleSwitch">Bật mục này trên Web</label>
                         </div>
                     </div>

@@ -34,8 +34,8 @@
                             <td><code class="text-secondary">@item.MenuUrl</code></td>
                             <td>@item.DisplayOrder</td>
                             <td>
-                                <span class="badge @(item.IsVisible ? "bg-success" : "bg-dark")">
-                                    @(item.IsVisible ? "Đang hiện" : "Đang ẩn")
+                                <span class="badge @(item.IsVisible ?? false ? "bg-success" : "bg-dark")">
+                                    @(item.IsVisible ?? false ? "Đang hiển thị" : "Đã ẩn")
                                 </span>
                             </td>
                             <td class="text-end">

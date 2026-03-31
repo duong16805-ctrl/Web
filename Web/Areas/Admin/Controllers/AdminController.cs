@@ -19,7 +19,7 @@ namespace Web.Areas.Admin.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
+            ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name");
             return View();
         }
 
@@ -33,18 +33,23 @@ namespace Web.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", p.CategoryId);
+
+            // Repopulate on validation error
+            ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name", p.CategoryId);
             return View(p);
         }
 
         public ActionResult Edit(int id)
         {
             var p = db.Products.Find(id);
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", p.CategoryId);
+            if (p == null) return HttpNotFound();
+            // Use the same key name and include selected value
+            ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name", p.CategoryId);
             return View(p);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(Product p)
         {
             if (ModelState.IsValid)
@@ -53,30 +58,37 @@ namespace Web.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            // Repopulate when returning view due to validation errors
+            ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name", p.CategoryId);
             return View(p);
         }
 
         public ActionResult Delete(int id)
         {
             var p = db.Products.Find(id);
-            db.Products.Remove(p);
-            db.SaveChanges();
+            if (p != null)
+            {
+                db.Products.Remove(p);
+                db.SaveChanges();
+            }
             return RedirectToAction("Index");
         }
     }
 
-    // ==========================================
-    // 2. QUẢN LÝ ĐƠN HÀNG
-    // ==========================================
-    public class OrderManagerController : Controller
+
+
+// ==========================================
+// 2. QUẢN LÝ ĐƠN HÀNG
+// ==========================================
+public class OrderManagerController : Controller
     {
         private QLCFEntities db = new QLCFEntities();
 
-        public ActionResult Index() => View(db.Orders.OrderByDescending(o => o.OrderDate).ToList());
+        public ActionResult Index() => View(db.Orders.OrderByDescending(o => o.Date).ToList());
 
         public ActionResult Details(int id)
         {
-            var order = db.Orders.Include(o => o.OrderDetails).FirstOrDefault(o => o.OrderID == id);
+            var order = db.Orders.Include(o => o.OrderDetails).FirstOrDefault(o => o.Id == id);
             return View(order);
         }
 
@@ -125,7 +137,8 @@ namespace Web.Areas.Admin.Controllers
             var table = db.TableCafes.Find(id);
             if (table != null)
             {
-                table.IsOccupied = !table.IsOccupied;
+                // Kiểm tra nếu đang là "Trống" thì đổi thành "Có người" và ngược lại
+                table.Status = (table.Status == "Trống") ? "Có người" : "Trống";
                 db.SaveChanges();
             }
             return RedirectToAction("Index");

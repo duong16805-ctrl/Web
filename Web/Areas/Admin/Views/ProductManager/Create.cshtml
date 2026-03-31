@@ -14,13 +14,13 @@
 
                 <div class="mb-3">
                     <label class="form-label fw-bold">Tên sản phẩm</label>
-                    @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control", placeholder = "Ví dụ: Cafe Muối", required = "required" })
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Ví dụ: Cafe Muối", required = "required" })
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-bold">Danh mục</label>
-                        @Html.DropDownList("CategoryID", null, "-- Chọn danh mục --", new { @class = "form-select" })
+                        @Html.DropDownListFor(m => m.CategoryId, (IEnumerable<SelectListItem>)ViewBag.CategoryId, "-- Chọn danh mục --", new { @class = "form-select" })
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-bold">Giá bán (VNĐ)</label>

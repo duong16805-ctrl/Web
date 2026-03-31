@@ -24,22 +24,22 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td class="ps-4">#@item.OrderID</td>
-                                <td>@item.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
-                                <td class="fw-bold text-dark">@string.Format("{0:N0} đ", item.TotalAmount)</td>
+                                <td class="ps-4">#@item.Id/td>
+                                <td>@(item.Date.HasValue ? item.Date.Value.ToString("dd/MM/yyyy HH:mm") : "N/A")</td>
+                                <td class="fw-bold text-dark">@string.Format("{0:N0} đ", item.Total)</td>
                                 <td>
-                                    @using (Html.BeginForm("UpdateStatus", "OrderManager", new { id = item.OrderID }, FormMethod.Post))
+                                    @using (Html.BeginForm("UpdateStatus", "OrderManager", new { id = item.Id }, FormMethod.Post))
                                     {
                                         <select name="status" onchange="this.form.submit()" class="form-select form-select-sm w-auto">
-                                            <option value="Pending" @(item.Status == "Pending" ? "selected" : "")>Chờ duyệt</option>
-                                            <option value="Processing" @(item.Status == "Processing" ? "selected" : "")>Đang làm</option>
-                                            <option value="Completed" @(item.Status == "Completed" ? "selected" : "")>Hoàn thành</option>
-                                            <option value="Cancelled" @(item.Status == "Cancelled" ? "selected" : "")>Đã hủy</option>
+                                            <option value="Pending" selected="@(item.Status == "Pending")">Chờ duyệt</option>
+                                            <option value="Processing" selected="@(item.Status == "Processing")">Đang làm</option>
+                                            <option value="Completed" selected="@(item.Status == "Completed")">Hoàn thành</option>
+                                            <option value="Cancelled" selected="@(item.Status == "Cancelled")">Đã huỷ</option>
                                         </select>
                                     }
                                 </td>
                                 <td class="text-end pe-4">
-                                    <a href="@Url.Action("Details", new { id = item.OrderID })" class="btn btn-sm btn-info text-white">
+                                    <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-sm btn-info text-white">
                                         <i class="fas fa-eye me-1"></i> Chi tiết
                                     </a>
                                 </td>

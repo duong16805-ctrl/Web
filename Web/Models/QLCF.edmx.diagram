@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0c825ecd2b794d28b849678301a5e838" Name="Diagram1" ZoomLevel="64">
+      <Diagram DiagramId="0c825ecd2b794d28b849678301a5e838" Name="Diagram1" ZoomLevel="95">
         <EntityTypeShape EntityType="QLCFModel.Category" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="QLCFModel.OrderDetail" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="QLCFModel.Order" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />

@@ -39,6 +39,7 @@
           <Property Name="TableId" Type="int" />
           <Property Name="Date" Type="datetime" />
           <Property Name="Total" Type="float" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -48,6 +49,8 @@
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Price" Type="float" Nullable="false" />
           <Property Name="CategoryId" Type="int" />
+          <Property Name="Image" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Suppliers">
           <Key>
@@ -210,6 +213,7 @@
           <Property Name="Total" Type="Double" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__Order__5AEE82B9" FromRole="Orders" ToRole="OrderDetail" />
           <NavigationProperty Name="TableCafe" Relationship="Self.FK__Orders__TableId__571DF1D5" FromRole="Orders" ToRole="TableCafe" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -221,6 +225,8 @@
           <Property Name="CategoryId" Type="Int32" />
           <NavigationProperty Name="Category" Relationship="Self.FK__Product__Categor__4F7CD00D" FromRole="Product" ToRole="Category" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__Produ__5BE2A6F2" FromRole="Product" ToRole="OrderDetail" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TableCafe">
           <Key>
@@ -390,6 +396,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="QLCFModel.Order">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="TableId" ColumnName="TableId" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
@@ -400,6 +407,8 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="QLCFModel.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
