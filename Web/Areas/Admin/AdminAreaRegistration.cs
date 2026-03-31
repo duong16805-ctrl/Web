@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Web.Area.Admin
+
+
+namespace Web.Areas.Admin
 {
     public class AdminAreaRegistration : AreaRegistration
     {

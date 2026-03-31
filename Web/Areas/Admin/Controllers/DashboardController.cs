@@ -5,14 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using Web.Models; // Thay 'Web' bằng tên Project của bạn nếu khác
 
-namespace Web.Areas.Amin.Controllers
+namespace Web.Areas.Admin.Controllers
 {
-    // Cần chỉ định rõ Controller này thuộc Area "Amin"
+    // Cần chỉ định rõ Controller này thuộc Area "Admin"
     public class DashboardController : Controller
     {
         private QLCFEntities db = new QLCFEntities();
 
-        // GET: Amin/Dashboard
+        // GET: Admin/Dashboard
         public ActionResult Index()
         {
             // Lấy dữ liệu cho bảng danh sách, bao gồm cả thông tin Category để hiển thị tên danh mục

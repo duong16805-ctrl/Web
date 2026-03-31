@@ -129,8 +129,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Area\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Area\Admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -215,9 +215,9 @@
     <Content Include="Models\QLCF.edmx.diagram">
       <DependentUpon>QLCF.edmx</DependentUpon>
     </Content>
-    <Content Include="Area\Admin\Views\Dashboard\Index.cshtml" />
-    <Content Include="Area\Admin\Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Area\Admin\Views\Web.config" />
+    <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Areas\Admin\Views\Web.config" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -247,7 +247,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Area\User\" />
+    <Folder Include="Areas\User\" />
     <Folder Include="Views\Dashboard\" />
   </ItemGroup>
   <ItemGroup>

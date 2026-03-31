@@ -112,7 +112,7 @@
     <div class="modal fade" id="createModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow rounded-4 overflow-hidden">
-                @using (Html.BeginForm("CreateProduct", "Dashboard", new { area = "Amin" }, FormMethod.Post))
+                @using (Html.BeginForm("CreateProduct", "Dashboard", new { area = "Admin" }, FormMethod.Post))
                 {
                     @Html.AntiForgeryToken()
                     <div class="modal-header bg-dark text-white border-0 py-3">
@@ -145,7 +145,7 @@
     <div class="modal fade" id="editModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow rounded-4 overflow-hidden">
-                @using (Html.BeginForm("EditProduct", "Dashboard", new { area = "Amin" }, FormMethod.Post))
+                @using (Html.BeginForm("EditProduct", "Dashboard", new { area = "Admin" }, FormMethod.Post))
                 {
                     @Html.AntiForgeryToken()
                     <input type="hidden" name="Id" id="edit-id" />
